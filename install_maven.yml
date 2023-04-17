@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: true
+  tasks:
+  - name: update system
+    yum:
+      name: '*'
+      state: latest
+  - name: install maven package
+    yum:
+      name: maven
