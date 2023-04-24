@@ -20,7 +20,7 @@
       name: docker
       state: present
   - name: login to docker
-    shell: "docker login -u admin -p iG57vVuKjpHCgPa http://{{ lookup('env', 'SERVER') }}:1111"
+    shell: "docker login -u admin -p iG57vVuKjpHCgPa http://{{ lookup('env', 'NEXUS_SERVER') }}:1111"
   - name: pull docker image
     shell: docker pull ec2-3-120-208-86.eu-central-1.compute.amazonaws.com:1111/repository/docker_images/petclinic
   - name: run the app
