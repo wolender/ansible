@@ -6,6 +6,16 @@
     yum:
       name: '*'
       state: latest
+    when: ansible_distribution == "Amazon"
+  - name: install java 17
+    yum:
+      name: java-17-amazon-corretto-devel.x86_64
+      state: present
   - name: install maven package
     yum:
       name: maven
+    when: ansible_distribution == "Amazon"
+  - name: get maven artefact
+    shell: mvn -s $SETTINGS dependency:get -DgroupId=org.springframework.samples -DartifactId=spring-petclinic -Dversion=3.0.0 -DrepoUrl=$SERVER/repository/maven-releases/ -Ddest=$WORKSPACE/
+  - name: run the app
+    shell: java -jar *.jar

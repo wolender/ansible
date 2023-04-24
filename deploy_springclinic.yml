@@ -1,0 +1,36 @@
+---
+- hosts: all
+  become: true
+  tasks:
+  - name: update system
+    yum:
+      name: '*'
+      state: latest
+    when: ansible_distribution == "Amazon"
+  - name: install java 17
+    yum:
+      name: java-17-amazon-corretto-devel.x86_64
+      state: present
+  - name: install maven package
+    yum:
+      name: maven
+    when: ansible_distribution == "Amazon"
+  - name: install docker
+    yum: 
+      name: docker
+      state: present
+  # - name: get maven artefact
+  #   community.general.maven_artifact:
+  #     group_id: org.springframework.samples
+  #     artifact_id: spring-petclinic
+  #     version: 3.0.0
+  #     repository_url: "{{ lookup('env', 'NEXUS_SERVER') }}/repository/maven-releases/"
+  #     username: admin
+  #     password: iG57vVuKjpHCgPa
+  #     dest: /
+  - name: get docker image
+    shell: |
+      "docker login -u admin -p iG57vVuKjpHCgPa http://{{ lookup('env', 'SERVER') }}:1111"
+      "docker pull {{ lookup('env', 'SERVER') }}:1111/repository/docker_images/petclinic:latest"
+  - name: run the app
+    shell: docker run petclinic -p 8080:8080
