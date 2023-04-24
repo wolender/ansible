@@ -22,6 +22,6 @@
   - name: login to docker
     shell: "docker login -u admin -p iG57vVuKjpHCgPa http://{{ lookup('env', 'NEXUS_SERVER') }}:1111"
   - name: pull docker image
-    shell: docker pull ec2-3-120-208-86.eu-central-1.compute.amazonaws.com:1111/repository/docker_images/petclinic
+    shell: docker pull ec2-3-120-208-86.eu-central-1.compute.amazonaws.com:1111/repository/docker_images/petclinic:3.1.0
   - name: run the app
     shell: docker run petclinic -p 8080:8080
