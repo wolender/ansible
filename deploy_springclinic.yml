@@ -2,9 +2,11 @@
 - hosts: all
   become: true
   tasks:
-  - name: Set host variable
-    set_fact:
-      NEXUS_SERVER: "{{ lookup('env', 'NEXUS_SERVER') }}"
+  vars: NEXUS_SERVER_URL = {{ lookup('env', 'NEXUS_SERVER') }}
+  - name: set variables
+    template:
+      src: daemon.json.j2
+      dest: /etc/docker/daemon.json
   - name: update system
     yum:
       name: '*'
