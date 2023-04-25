@@ -1,8 +1,9 @@
 ---
 - hosts: all
   become: true
+  vars:
+    NEXUS_SERVER_URL: {{ lookup('env', 'NEXUS_SERVER') }}
   tasks:
-  vars: NEXUS_SERVER_URL = {{ lookup('env', 'NEXUS_SERVER') }}
   - name: set variables
     template:
       src: daemon.json.j2
