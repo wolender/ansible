@@ -2,7 +2,7 @@
 - hosts: all
   become: true
   vars:
-    NEXUS_SERVER_URL: {{ lookup('env', 'NEXUS_SERVER') }}
+    NEXUS_SERVER_URL: "{{ lookup('env', 'NEXUS_SERVER') }}"
   tasks:
   - name: set variables
     template:
